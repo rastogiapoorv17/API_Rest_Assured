@@ -15,11 +15,11 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class Utils {
-	public static RequestSpecification reqspec;
+	public static RequestSpecification reqspec;    //By Making this variable static, we have declared it globally means on second execution its value will not be null
 
 	public RequestSpecification requestSpecification() throws IOException {
 		
-		if(reqspec==null)
+		if(reqspec==null)       //using if condition, logging.txt file will not overwrite and will not be created again so that all tc's will be logged
 		{
 		PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
 		reqspec = new RequestSpecBuilder().setBaseUri(getGlobalValue("baseurl")).setRelaxedHTTPSValidation()
@@ -33,7 +33,7 @@ public class Utils {
 	public static String getGlobalValue(String key) throws IOException {
 		
 		Properties prop=new Properties();
-		FileInputStream fis = new FileInputStream("C:\\Users\\apoorv.r\\eclipse-workspace\\API\\src\\test\\java\\resources\\global.propeties");
+		FileInputStream fis = new FileInputStream("src/test/java/resources/global.propeties");
 		prop.load(fis);
 		return prop.getProperty(key);
 		
